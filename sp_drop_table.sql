@@ -6,7 +6,7 @@ CREATE PROCEDURE dba.sp_drop_table(
 )
 COMMENT 'Move dropped table into trash database to recover before.'
 drop_table:BEGIN
-  SELECT table_schema, table_name AS 'table'
+  SELECT DISTINCT table_schema, table_name AS 'table'
   INTO @table_schema, @table_name
   FROM INFORMATION_SCHEMA.COLUMNS AS c
   WHERE c.table_schema = table_schema
