@@ -1,10 +1,26 @@
 DELIMITER //
+DROP PROCEDURE IF EXISTS dba.sp_drop_table//
 CREATE PROCEDURE dba.sp_drop_table(
   IN database_name VARCHAR(64),
   IN table_name    VARCHAR(64)
 )
 COMMENT 'Move dropped table into trash database to recover before.'
-BEGIN
+drop_table:BEGIN
+  SELECT table_schema, table_name AS 'table'
+  INTO @table_schema, @table_name
+  FROM INFORMATION_SCHEMA.COLUMNS AS c
+  WHERE c.table_schema = table_schema
+    AND c.table_name   = table_name;
+
+  IF (@table_name IS NULL) THEN
+    SELECT CONCAT('Table not exist: ', database_name, '.', table_name) INTO @message;
+
+    SIGNAL SQLSTATE '45001'
+    SET MESSAGE_TEXT = @message;
+
+    LEAVE drop_table;
+  END IF;
+
   SET @user_name = (SELECT USER());
 
   SET @tmp_sql = CONCAT('INSERT INTO dba.trash ('
