@@ -1,5 +1,6 @@
+DROP PROCEDURE IF EXISTS dba.sp_delete_row;
+
 DELIMITER //
-DROP PROCEDURE IF EXISTS dba.sp_delete_row//
 CREATE PROCEDURE dba.sp_delete_row(
   IN database_name VARCHAR(64),
   IN table_name    VARCHAR(64),

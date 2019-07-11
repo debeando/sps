@@ -1,3 +1,6 @@
+DROP PROCEDURE IF EXISTS dba.sp_set_null;
+
+DELIMITER //
 CREATE PROCEDURE dba.sp_set_null(
   IN database_name VARCHAR(64),
   IN table_name    VARCHAR(64),
@@ -5,7 +8,7 @@ CREATE PROCEDURE dba.sp_set_null(
   IN primary_key   INT
 )
 COMMENT 'Update row and save old data to recover.'
-BEGIN
+audit:BEGIN
   SET @user_name = (SELECT USER());
 
     SET @tmp_sql = CONCAT('SELECT COUNT(id) INTO @exist_row FROM ',
@@ -92,4 +95,5 @@ BEGIN
     DEALLOCATE PREPARE s1;
 
     COMMIT;
-  END;
+END//
+DELIMITER ;

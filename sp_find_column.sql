@@ -1,3 +1,5 @@
+DROP PROCEDURE IF EXISTS dba.sp_find_column;
+
 DELIMITER //
 CREATE PROCEDURE dba.sp_find_column(
   IN column_search VARCHAR(64)

@@ -1,3 +1,5 @@
+DROP PROCEDURE IF EXISTS dba.sp_find_table;
+
 DELIMITER //
 CREATE PROCEDURE dba.sp_find_table(
   IN table_search VARCHAR(64)

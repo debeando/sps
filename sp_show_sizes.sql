@@ -1,3 +1,6 @@
+DROP PROCEDURE IF EXISTS dba.sp_show_sizes;
+
+DELIMITER //
 CREATE PROCEDURE dba.sp_show_sizes()
 COMMENT 'Show tables sizes.'
 BEGIN
@@ -13,4 +16,5 @@ BEGIN
                              'performance_schema',
                              'mysql')
   ORDER BY data_length + index_length DESC;
-END
+END//
+DELIMITER ;

@@ -1,5 +1,6 @@
+DROP PROCEDURE IF EXISTS dba.sp_drop_table;
+
 DELIMITER //
-DROP PROCEDURE IF EXISTS dba.sp_drop_table//
 CREATE PROCEDURE dba.sp_drop_table(
   IN database_name VARCHAR(64),
   IN table_name    VARCHAR(64)
